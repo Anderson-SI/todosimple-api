@@ -1,7 +1,5 @@
 package com.anderson.demo.models;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +12,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
-import javax.naming.spi.DirStateFactory.Result;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -29,7 +26,7 @@ public class User {
     public interface CreateUser {}
     public interface UpdateUser {}
 
-    public static final String TABLE_USER = "user";
+    public static final String TABLE_USER = "users";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,8 +48,6 @@ public class User {
 
     // private List<Task> tasks = new ArrayList<Task>();
     
-
-
     public User() {
     }
 
