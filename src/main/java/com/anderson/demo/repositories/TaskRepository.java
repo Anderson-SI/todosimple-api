@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import com.anderson.demo.models.Task;
 
-//@Repository 
 //@NoRepositoryBean
+@Repository 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    //List<Task> FindByUser_Id(Long id);
+    List<Task> findByUser_Id(Long id);
     
     // @Query(value = "SELECT t FROM Task t WHERE t.user.id = :id")
     // List<Task> FindByUserId (@Param("user_id") Long id);
