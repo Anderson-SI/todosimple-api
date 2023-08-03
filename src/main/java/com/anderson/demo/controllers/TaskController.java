@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.anderson.demo.models.Task;
 import com.anderson.demo.services.TaskService;
+import com.anderson.demo.services.UserService;
 
 import jakarta.validation.Valid;
 
@@ -29,6 +30,9 @@ public class TaskController {
     
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private UserService userService;
     
     @GetMapping("/{id}")
     public ResponseEntity<Task> findById(@PathVariable Long id) {
@@ -38,6 +42,7 @@ public class TaskController {
     
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Task>>  findByUserId(@PathVariable Long userId) {
+        userService.findById(userId);
         List<Task> objs = this.taskService.findAllByUserId(userId);
         return ResponseEntity.ok().body(objs);
     }
