@@ -1,7 +1,5 @@
 package com.anderson.demo.models;
 
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,9 +11,19 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = Task.TABLE_TASK)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Task {
 
     private static final String TABLE_TASK = "task";
@@ -34,64 +42,5 @@ public class Task {
     @NotEmpty
     @Size(min = 1, max = 255)
     private String description;
-
-
-    public Task() {
-    }
-
-    public Task(Long id, User users, String description) {
-        this.id = id;
-        this.user = users;
-        this.description = description;
-    }
-    
-    @Override
-    public boolean equals(Object objeto) {
-     Task other = (Task) objeto;
-        if (objeto == this)
-            return true;
-        if (objeto == null)
-            return false;
-        if (! (objeto instanceof Task))
-            return false; 
-        if (this.id == null) 
-            if (other.id != null) 
-                return false;
-            else if (!this.id.equals(other.id))
-                return false;
-        return Objects.equals(this.id, other.id) && Objects.equals(this.user, other.user) 
-        && Objects.equals(this.description, other.description);
-    }
-
-    @Override
-    public int hashCode() {
-        int prime = 31, result = 1;
-        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        return result;
-    }
-    
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User users) {
-        this.user = users;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
     
 }
