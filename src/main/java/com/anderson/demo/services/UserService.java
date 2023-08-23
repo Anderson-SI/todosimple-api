@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.anderson.demo.models.User;
 import com.anderson.demo.repositories.UserRepository;
+import com.anderson.demo.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -17,7 +18,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> user = this.userRepository.findById(id);
-        return user.orElseThrow(() -> new RuntimeException(
+        return user.orElseThrow(() -> new ObjectNotFoundException(
             "Usuário não encontrado! id: " + id + ", Tipo: " + User.class.getName()
         ));
     }

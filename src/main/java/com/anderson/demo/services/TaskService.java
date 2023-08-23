@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.anderson.demo.models.Task;
 import com.anderson.demo.models.User;
 import com.anderson.demo.repositories.TaskRepository;
+import com.anderson.demo.services.exceptions.DataBindingViolationException;
+import com.anderson.demo.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TaskService {
@@ -22,7 +24,7 @@ public class TaskService {
 
     public Task findById (Long id) {
         Optional<Task> task = this.taskRepository.findById(id);
-        return task.orElseThrow(() -> new RuntimeException(
+        return task.orElseThrow(() -> new ObjectNotFoundException(
             "Tarefa não encontrada! id: " + id + ", Tipo " + Task.class.getName()));
     }
 
@@ -52,8 +54,7 @@ public class TaskService {
         try {
             this.taskRepository.deleteById(id);
         } catch (Exception e) {
-            // TODO: handle exception
-            throw new RuntimeException("Não é possível excluír pois há entidades relacionadas!");
+            throw new DataBindingViolationException ("Não é possível excluír pois há entidades relacionadas!");
         }
     }
 
