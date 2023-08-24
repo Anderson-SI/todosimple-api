@@ -29,14 +29,14 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+// import org.springframework.security.core.AuthenticationException;
+// import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j(topic = "GLOBAL_EXCEPTION_HANDLER")
 @RestControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler implements AuthenticationFailureHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Value("${server.error.include-exception}")
     private boolean printStackTrace;
@@ -53,8 +53,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler imple
         return super.handleMethodArgumentNotValid(ex, headers, status, request);
     }
 
-    /*
-    @Override
+
+    //@Override
     @Nullable
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     protected ResponseEntity<Object> handleMethodArgumentNotValid (
@@ -70,7 +70,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler imple
         }
         return ResponseEntity.unprocessableEntity().body(errorResponse);
     }
-    */
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(
@@ -135,6 +135,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler imple
                 request);
     }
 
+ /*
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<Object> handleAuthenticationException(
@@ -146,7 +147,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler imple
                 HttpStatus.UNAUTHORIZED,
                 request);
     }
-
+ */
 
     private ResponseEntity<Object> buildErrorResponse(
             Exception exception,
@@ -167,6 +168,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler imple
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }
 
+    /*
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
@@ -176,7 +178,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler imple
         ErrorResponse errorResponse = new ErrorResponse(status, "Username or password are invalid");
         response.getWriter().append(errorResponse.toJson()); 
     }
-
+ */
 
 
 }
